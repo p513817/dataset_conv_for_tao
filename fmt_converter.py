@@ -10,7 +10,7 @@ import json
 import cv2
 import glob
 import numpy as np
-from utils import check_path, bbox_yolo2norm, parse_json, dset_format, name_mapping, dset_check_parse
+from utils import check_path, bbox_yolo2norm, parse_json, dset_format, name_mapping, dset_check_parse, draw_bbox
 
 def init_args():
     # Initial argparse 
@@ -109,9 +109,9 @@ if args.show:
     # [1]    
     for idx, img_id in enumerate(np.random.randint(len(img_files), size=args.num)):
         # [2]
-        img = img_files[img_id]
-        name, ext = os.path.splitext(img)
-        frame = cv2.imread(img)
+        img_path = img_files[img_id]
+        name, ext = os.path.splitext(img_path)
+        frame = cv2.imread(img_path)
         # [3]
         with open(name+'.txt', 'r') as label:
             for line in label.readlines():
@@ -120,9 +120,13 @@ if args.show:
 
                 if out_type=="kitti":
                     x1,y1,x2,y2=map(lambda x:int(float(x)), raw[4:8])
+                elif out_type=="yolo":
+                    x1,y1,x2,y2=map(lambda x:int(x), bbox_yolo2norm(raw[1], raw[2], raw[3], raw[4], frame.shape[1], frame.shape[0]))
+
                 # [4]
-                cv2.putText(frame, f"File: {img}", (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2, cv2.LINE_AA)
-                frame = cv2.rectangle(frame, (x1,y1), (x2,y2), (0,0,255), 2)
+                cv2.putText(frame, f"{img_path}", (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2, cv2.LINE_AA)
+                frame = draw_bbox(frame, classes, (x1,y1,x2,y2) )
+
         # [5]
         row_frames = frame if (idx)%(np.sqrt(args.num))==0 else np.hstack((row_frames, frame))
         # [6]
@@ -133,7 +137,9 @@ if args.show:
     frames=np.vstack((frames))
 
     # [8]
-    cv2.imshow('Sample', cv2.resize(frames, (743,885)))
+    cv2.namedWindow('Sample', cv2.WINDOW_NORMAL)
+    cv2.setWindowProperty("Sample", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN);
+    cv2.imshow('Sample', frames)
     print("Press 'q' and 'esc' to leave, 's' to save in sample.png ... ")
     while(1):
         key=cv2.waitKey(1)

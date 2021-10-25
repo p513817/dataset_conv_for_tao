@@ -1,7 +1,7 @@
 import os
 import json
 import numpy as np
-
+import cv2
 
 def dset_format(format):
     # 使用 Lambda 定義 KITTI 格式
@@ -69,3 +69,16 @@ def parse_json(json_file):
         out_type = map_table['out_type']
         map_class = map_table['map_class']
     return in_type, out_type, map_class
+
+def draw_bbox(frame, label, xxyy):
+
+    x1,y1,x2,y2 = xxyy
+    cv2.rectangle(frame, (x1,y1), (x2,y2), (0,0,255), 2)
+
+    label_cnt=f"{label}"
+    font_size, font_thickness, font_pad = 1, 2, 5
+    (w, h), _ = cv2.getTextSize( label_cnt, cv2.FONT_HERSHEY_SIMPLEX, font_size, font_thickness)
+    cv2.rectangle(frame, (x1,y1-h), (x1+font_pad+w,y1), (0,0,255), -1)
+
+    frame = cv2.putText(frame, f"{label}", (x1+font_pad,y1-h//4), cv2.FONT_HERSHEY_SIMPLEX, font_size-0.4, (255, 255, 255), font_thickness, cv2.LINE_AA)
+    return frame
