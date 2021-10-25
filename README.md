@@ -19,8 +19,7 @@ convert dataset's format for NVIDIA TAO Toolkit.
         "in_type":"yolo",
         "out_type":"kitti",
         "map_class":{
-            "0":"usb",
-            "1":"usb"
+            "origin":"changed name"
         }
     }
     ```
@@ -34,6 +33,16 @@ convert dataset's format for NVIDIA TAO Toolkit.
     ```
 
 ## Demo
+ ```json
+ {
+     "in_type":"yolo",
+     "out_type":"kitti",
+     "map_class":{
+         "0":"usb",
+         "1":"usb"
+     }
+ }
+ ```
 ```bash
 $ python3 fmt_converter.py -i ./usb/ -m ./map_table.json 
 * Convert from 'yolo' to 'kitti'
