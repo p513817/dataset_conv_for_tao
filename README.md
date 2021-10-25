@@ -33,7 +33,7 @@ convert dataset's format for NVIDIA TAO Toolkit.
     $ python3 fmt_converter.py -i ${task} -m ./map_table.json 
     ```
 
-## DEMO
+## Demo
 ```bash
 $ python3 fmt_converter.py -i ./usb/ -m ./map_table.json 
 * Convert from 'yolo' to 'kitti'
@@ -47,7 +47,7 @@ Saved Image ('./sample.png')
 
 ![image](./figures/sample.png)
 
-## help
+## Help
 ```bash
 $ python3 fmt_converter.py --help
 usage: fmt_converter.py [-h] [-i INPUT] [-m MAP] [-n NUM] [-s SHOW] [--only-show]
