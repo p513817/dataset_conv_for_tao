@@ -1,0 +1,8 @@
+{
+    "in_type":"yolo",
+    "out_type":"kitti",
+    "map_class":{
+        "0":"usb",
+	    "1":"usb"
+    }
+}
