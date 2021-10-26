@@ -43,7 +43,7 @@ convert dataset's format for NVIDIA TAO Toolkit.
     ```
 
 ## Demo
-1. Convert
+1. Convert yolo format to kitti:
     ```json
     {
         "dataset":"mask",
@@ -73,7 +73,7 @@ convert dataset's format for NVIDIA TAO Toolkit.
     ![image](./figures/sample.jpg)
 
 2. Only-Show
-    Dependence on "out_type"
+    the only-show option dependence on "out_type"
     ```json
     {
         "dataset":"mask",
