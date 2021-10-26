@@ -43,7 +43,35 @@ convert dataset's format for NVIDIA TAO Toolkit.
     ```
 
 ## Demo
-1. Convert yolo format to kitti:
+
+I download a mask dataset which is YOLO format and I would like to use the TAO Toolkit to train a `YOLOv4`. I have to convert YOLO format to KITTI because the dataset of objected detection is depending on KITTI format.
+
+1. Only-Show
+    
+    First, you can choice mode "only-show" to make a grid of the sample image, notice that "only-show" option dependence on "out_type", some option will be invalidated at the same time, e.g. "in_type", "sample_*", "map_class":
+    
+    ```json
+    {
+        "dataset":"mask",
+        "mode_option":["convert", "only-show"],
+        "mode":"only-show",
+        "in_type":"yolo",
+        "out_type":"yolo",
+        "sample_grid_path":"./sample_org.jpg",
+        "sample_grid":"3x5",
+        "map_class":{
+            "0":"mask",
+            "1":"no-mask",
+            "2":"abnormal"
+        }
+    }
+    ```
+
+    ![image](./figures/sample_org.jpg)
+
+2. Convert yolo format to kitti:
+
+    Now you can setup mode from "only-show" to "convert", and 
     ```json
     {
         "dataset":"mask",
@@ -72,23 +100,3 @@ convert dataset's format for NVIDIA TAO Toolkit.
 
     ![image](./figures/sample.jpg)
 
-2. Only-Show
-    the only-show option dependence on "out_type"
-    ```json
-    {
-        "dataset":"mask",
-        "mode_option":["convert", "only-show"],
-        "mode":"only-show",
-        "in_type":"yolo",
-        "out_type":"yolo",
-        "sample_grid_path":"./sample_org.jpg",
-        "sample_grid":"3x5",
-        "map_class":{
-            "0":"mask",
-            "1":"no-mask",
-            "2":"abnormal"
-        }
-    }
-    ```
-
-    ![image](./figures/sample_org.jpg)
