@@ -1,8 +1,14 @@
 {
+    "dataset":"mask",
+    "mode_option":["convert", "only-show"],
+    "mode":"only-show",
     "in_type":"yolo",
-    "out_type":"kitti",
+    "out_type":"yolo",
+    "sample_grid_path":"./sample_org.jpg",
+    "sample_grid":"3x5",
     "map_class":{
-        "0":"usb",
-	    "1":"usb"
+        "0":"mask",
+        "1":"no-mask",
+        "2":"abnormal"
     }
 }
